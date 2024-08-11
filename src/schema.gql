@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  id: Int!
+  description: String!
+  status: Boolean!
+}
+
+type Query {
+  """Mensaje de hola mundo"""
+  hello: String!
+
+  """Regresa un numero random"""
+  randmon: Float!
+
+  """regresar un numero entero entre cero y otro numero"""
+  randomFromZeroTo(number: Int): Int!
+
+  """obtener los todos paginados"""
+  getAllTodos: [Todo!]!
+
+  """obtener un todo por id"""
+  getTodo(id: Int!): Todo!
+}
+
+type Mutation {
+  """crear todo"""
+  create(createTodoInput: CreateTodoInput!): Todo!
+  deleteTodo(deleteTodoInput: Int!): Boolean!
+}
+
+input CreateTodoInput {
+  """Descripcion de la tarea"""
+  description: String!
+}
