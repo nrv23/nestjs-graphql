@@ -8,6 +8,14 @@ type Todo {
   status: Boolean!
 }
 
+"""Todo with aggregations"""
+type AggregationsType {
+  total: Int!
+  pending: Int!
+  completed: Int!
+  totalCompleted: Int! @deprecated(reason: "Ya existe otra propiedad que devuelve el mismo valor")
+}
+
 type Query {
   """Mensaje de hola mundo"""
   hello: String!
@@ -19,10 +27,16 @@ type Query {
   randomFromZeroTo(number: Int): Int!
 
   """obtener los todos paginados"""
-  getAllTodos: [Todo!]!
+  getAllTodos(
+    """Estado de la tarea"""
+    status: Boolean
+  ): [Todo!]!
 
   """obtener un todo por id"""
   getTodo(id: Int!): Todo!
+  totalTodos: Int!
+  totalTodosByStatus(status: Boolean!): Int!
+  aggregations: AggregationsType!
 }
 
 type Mutation {

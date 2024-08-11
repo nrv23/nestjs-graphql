@@ -3,13 +3,15 @@ import { Todo } from 'src/todo/entity/todo.entity';
 import { CreateTodoInput } from '../../dtos/inputs/create-todo.input';
 import { DeleteTodoInput } from 'src/todo/dtos/inputs/delete-todo.input';
 import { UpdateTodoInput } from 'src/todo/dtos/inputs/update-todo.input';
+import { StatusArgs } from './../../dtos/args/status.args';
+
 
 @Injectable()
 export class TodoService {
 
     private todos: Todo[] = [
         {
-            id: 1,
+            id: 3,
             description: "test1",
             done: false
         },
@@ -22,10 +24,25 @@ export class TodoService {
             id: 1,
             description: "test3",
             done: true
+        },
+        {
+            id: 4,
+            description: "test4",
+            done: true
         }
     ]
 
-    findAll() {
+    get totalTodos() {
+        return this.todos.length;
+    }
+
+    totalTodosByStatus(status: boolean): number {
+        return this.todos.filter(todo => todo.done === status).length;
+    }
+
+    findAll(args: StatusArgs) {
+        
+        if(typeof args.status !== 'undefined') return this.todos.filter(todo => todo.done === args.status);
         return this.todos;
     }
 
